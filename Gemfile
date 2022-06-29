@@ -74,3 +74,8 @@ group :test do
   gem "webdrivers"
   gem "json_matchers"
 end
+
+## Password hashing
+gem 'bcrypt', '~> 3.1.7'
+## User authentication
+gem 'jwt'
