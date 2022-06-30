@@ -17,6 +17,10 @@ RSpec.describe "Api::V1::Projects", type: :request do
         post "/api/v1/projects", params: {}, as: :form, headers: authentication_header(user1)
         expect(response.status).to eq(422)
       end
+      it 'should give status 401' do
+        post "/api/v1/projects", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US", thumbnail: Rack::Test::UploadedFile.new('spec/fixtures/project.png', 'thumbail/png') }, as: :form
+        expect(response.status).to eq(401)
+      end
     end
 
     describe '#update' do
@@ -24,6 +28,10 @@ RSpec.describe "Api::V1::Projects", type: :request do
         put "/api/v1/projects/#{project1.id}", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US" }, as: :json, headers: authentication_header(user1)
         expect(response.status).to eq(200)
         expect(response).to match_json_schema("project")
+      end
+      it 'should give status 401' do
+        put "/api/v1/projects/#{project1.id}", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US" }, as: :json
+        expect(response.status).to eq(401)
       end
       it 'should give status 401' do
         put "/api/v1/projects/#{project1.id}", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US" }, as: :json, headers: authentication_header(new_user)

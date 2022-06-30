@@ -19,6 +19,10 @@ RSpec.describe "Api::V1::Contents", type: :request do
         expect(response.status).to eq(422)
       end
       it 'should give status 401' do
+        post "/api/v1/projects/#{project1.id}/contents", params: {title: "Project content title", body: "Project content body" }, as: :json
+        expect(response.status).to eq(401)
+      end
+      it 'should give status 401' do
         post "/api/v1/projects/#{project1.id}/contents", params: {title: "Project content title", body: "Project content body" }, as: :json, headers: authentication_header(new_user)
         expect(response.status).to eq(401)
       end
@@ -29,6 +33,10 @@ RSpec.describe "Api::V1::Contents", type: :request do
         put "/api/v1/projects/#{project1.id}/contents/#{content1.id}", params: {title: "Updated Project content title", body: "Updated Project content body" }, as: :json, headers: authentication_header(user1)
         expect(response.status).to eq(200)
         expect(response).to match_json_schema("content")
+      end
+      it 'should give status 401' do
+        put "/api/v1/projects/#{project1.id}/contents/#{content1.id}", params: {title: "Updated Project content title", body: "Updated Project content body" }, as: :json
+        expect(response.status).to eq(401)
       end
       it 'should give status 401' do
         put "/api/v1/projects/#{project1.id}/contents/#{content1.id}", params: {title: "Updated Project content title", body: "Updated Project content body" }, as: :json, headers: authentication_header(new_user)
