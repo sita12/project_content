@@ -1,24 +1,38 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
+- Docker (mandatory)
 
-Things you may want to cover:
+## Installation
+After cloning the repository, it is necessary to create and configure an `.env` file, using the template in `.env.sample`. The project can then be built acording to the stack described in `docker-compose.yml`:
 
-* Ruby version
+```bash
+docker-compose build
+```
 
-* System dependencies
+### First run and migrations
+Migrations and DB operations can be run by directly giving commands with Docker Compose:
 
-* Configuration
+```bash
+docker-compose run web rails db:create && rails db:migrate
+```
 
-* Database creation
+Optional: seed the database
+```bash
+docker-compose run rails db:seed
+```
 
-* Database initialization
+### Launching
+By typing `docker-compose up`, the following containers are launched:
 
-* How to run the test suite
+- `web`: Rails application
+- `db`: PostgreSQL database
 
-* Services (job queues, cache servers, search engines, etc.)
+The application can be accessed at [localhost:3000](http://localhost:3000) 
 
-* Deployment instructions
+Once the stack is running, every container can be accessed opening another shell and typing `docker-compose exec web bash`. This can be used to inspect the container or run other operations such as `rails c`; in this respect the console has been preconfigured for pretty printing using `amazing-print`. 
 
-* ...
+## Testing
+This application uses RSpec, Factory Bot and json_matchers. Tests can be executed from the shell of a running container with `rails spec` or a dedicated container (and required db) can be launched with `docker-compose run web rails spec`.
+
+## Auth
+This project uses JWT to handle api authentication on. JWT is open industry standard (RFC 7519) for representing claims securely between two parties
