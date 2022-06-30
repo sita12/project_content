@@ -1,1 +1,3 @@
-json.partial! 'project', project: @project
+json.data do
+    json.partial! 'project', project: @project
+end    

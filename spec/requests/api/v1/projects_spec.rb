@@ -26,8 +26,34 @@ RSpec.describe "Api::V1::Projects", type: :request do
       end
     end
 
+    describe '#show' do
+      it 'should give status 200' do
+        get "/api/v1/projects/#{project1.id}", headers: authentication_header(user1)
+        expect(response.status).to eq(200)
+        expect(response).to match_json_schema("project")
+      end
+    end
+
+    describe '#index' do
+      it 'should give status 200' do
+        get "/api/v1/projects", headers: authentication_header(user1)
+        expect(response.status).to eq(200)
+        expect(response).to match_json_schema("projects")
+      end
+    end
+
+    describe '#my_projects' do
+      it 'should give status 200' do
+        get "/api/v1/projects/my_projects", headers: authentication_header(user1)
+        expect(response.status).to eq(200)
+        expect(response).to match_json_schema("projects")
+      end
+    end
+
     describe '#destroy' do
       it 'should give status 200' do
+        user2 = FactoryBot.create(:user, email: "test@gmail.com") 
+        project2 =  FactoryBot.create(:project, user: user2)
         delete "/api/v1/projects/#{project1.id}", headers: authentication_header(user1)
         expect(response.status).to eq(200)
       end

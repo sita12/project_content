@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       post "auth/signin", to: "users#login"
-      resources :projects
+      resources :projects do
+        get 'my_projects', on: :collection
+      end  
     end
   end
 end
