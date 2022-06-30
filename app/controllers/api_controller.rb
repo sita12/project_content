@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
     protect_from_forgery with: :null_session
+    before_action :underscore_params!
 
     private
     def authorize_request
@@ -24,4 +25,8 @@ class ApiController < ApplicationController
     def render_api_message message, status
         render json: {message: message}, status: status
     end
+
+    def underscore_params!
+        params.deep_transform_keys!(&:underscore)
+    end    
 end
