@@ -1,0 +1,42 @@
+{
+    "id": "https://json-schema.org/geo",
+    "$schema": "https://json-schema.org/draft-06/schema#",
+    "description": "A geographical coordinate",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "array",
+            "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "attributes": {
+                    "type": "object",
+                    "properties": {
+                        "projectId": {
+                            "type": "number"
+                        },
+                        "projectOwnerName": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "body": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        },
+                        "updatedAt": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }    
+    }
+}

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post "auth/signin", to: "users#login"
       resources :projects do
         get 'my_projects', on: :collection
+        resources :contents
       end  
     end
   end

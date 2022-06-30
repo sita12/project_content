@@ -54,7 +54,7 @@ RSpec.describe "Api::V1::Projects", type: :request do
       it 'should give status 200' do
         user2 = FactoryBot.create(:user, email: "test@gmail.com") 
         project2 =  FactoryBot.create(:project, user: user2)
-        delete "/api/v1/projects/#{project1.id}", headers: authentication_header(user1)
+        delete "/api/v1/projects/#{project2.id}", headers: authentication_header(user2)
         expect(response.status).to eq(200)
       end
     end
