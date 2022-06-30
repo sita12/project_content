@@ -1,15 +1,15 @@
 class Api::V1::ContentsController < ApiController
-    before_action :authorize_request
+    before_action :authorize_request, except: [:index, :show]
     before_action :set_owner_project,  only: [:create, :update, :destroy]
     before_action :set_project,  only: [:index, :show]
     before_action :set_content,  only: [:update, :destroy]
 
     def index
-        @contents = Content.includes(project: :user).all
+        @contents = @project.contents.includes(project: :user).all
     end   
     
     def show 
-        @content = Content.all.find_by_id(params[:id])
+        @content = @project.contents.find_by_id(params[:id])
         if @content.nil?
             render json: {message: "Error: Project Not Foound"}, status: 400
             return

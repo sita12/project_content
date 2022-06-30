@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Projects", type: :request do
 
     describe '#show' do
       it 'should give status 200' do
-        get "/api/v1/projects/#{project1.id}", headers: authentication_header(user1)
+        get "/api/v1/projects/#{project1.id}"
         expect(response.status).to eq(200)
         expect(response).to match_json_schema("project")
       end
@@ -41,7 +41,7 @@ RSpec.describe "Api::V1::Projects", type: :request do
 
     describe '#index' do
       it 'should give status 200' do
-        get "/api/v1/projects", headers: authentication_header(user1)
+        get "/api/v1/projects"
         expect(response.status).to eq(200)
         expect(response).to match_json_schema("projects")
       end

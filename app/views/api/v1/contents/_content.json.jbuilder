@@ -3,7 +3,7 @@ json.(content,
 )
 json.type "content"
 json.attributes do
-    json.projectId content.project.id
+    json.projectId @project.id
     json.projectOwnerName content.user.name
     json.title content.title
     json.body content.body
