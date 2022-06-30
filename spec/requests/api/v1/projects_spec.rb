@@ -18,11 +18,18 @@ RSpec.describe "Api::V1::Projects", type: :request do
       end
     end
 
-    describe '#create' do
+    describe '#update' do
       it 'should give status 200' do
         put "/api/v1/projects/#{project1.id}", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US" }, as: :json, headers: authentication_header(user1)
         expect(response.status).to eq(200)
         expect(response).to match_json_schema("project")
+      end
+    end
+
+    describe '#destroy' do
+      it 'should give status 200' do
+        delete "/api/v1/projects/#{project1.id}", headers: authentication_header(user1)
+        expect(response.status).to eq(200)
       end
     end
   end

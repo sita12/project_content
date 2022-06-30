@@ -1,6 +1,6 @@
 class Api::V1::ProjectsController < ApiController
   before_action :authorize_request
-  before_action :set_project,  only: [:update]
+  before_action :set_project,  only: [:update, :destroy]
 
   def update
 		if @project.update(update_params)
@@ -17,7 +17,15 @@ class Api::V1::ProjectsController < ApiController
     else
       render json: {message: @project.errors}, status: :unprocessable_entity
     end
-  end  
+  end 
+  
+  def destroy
+		if @project.destroy
+			render json: { message: "Successfully Deleted" }, status: 200
+		else
+			render json: {message: @project.errors}, status: :unprocessable_entity
+		end
+	end
   
   private
   def set_project
