@@ -4,7 +4,7 @@ RSpec.describe "Api::V1::Projects", type: :request do
   describe ' controller test cases ' do
 
     let(:user1) { FactoryBot.create(:user, email: "marry@gmail.com") }
-    let(:project11) { FactoryBot.create(:project, user: user1) }
+    let(:project1) { FactoryBot.create(:project, user: user1) }
 
     describe '#create' do
       it 'should give status 200' do
@@ -15,6 +15,14 @@ RSpec.describe "Api::V1::Projects", type: :request do
       it 'should give status 422' do
         post "/api/v1/projects", params: {}, as: :form, headers: authentication_header(user1)
         expect(response.status).to eq(422)
+      end
+    end
+
+    describe '#create' do
+      it 'should give status 200' do
+        put "/api/v1/projects/#{project1.id}", params: {title: "Project", project_type: "in_house", description: "New Project", location: "US" }, as: :json, headers: authentication_header(user1)
+        expect(response.status).to eq(200)
+        expect(response).to match_json_schema("project")
       end
     end
   end

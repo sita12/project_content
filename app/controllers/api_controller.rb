@@ -4,8 +4,8 @@ class ApiController < ApplicationController
 
     private
     def authorize_request
-        header = request.headers['Authorization'].split(' ')[1]
-        header.nil? ? render_api_message("Error: Unauthorized Access", :unauthorized) : token_auth(header)          
+        header = request.headers['Authorization']
+        header.nil? ? render_api_message("Error: Unauthorized Access", :unauthorized) : token_auth(header.split(' ')[1])          
     end
 
     def token_auth(header)
