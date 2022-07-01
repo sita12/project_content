@@ -40,7 +40,7 @@ class Api::V1::ProjectsController < ApiController
 	end
 
   def my_projects
-    @projects = @user.projects
+    @projects = @user.projects.includes(:user)
     render 'index'
   end  
   
