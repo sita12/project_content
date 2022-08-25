@@ -1,5 +1,5 @@
 class Api::V1::ProjectsController < ApiController
-  before_action :authorize_request
+  before_action :authorize_request, except: [:index, :show]
   before_action :set_project,  only: [:update, :destroy]
 
   def index
@@ -40,7 +40,7 @@ class Api::V1::ProjectsController < ApiController
 	end
 
   def my_projects
-    @projects = @user.projects
+    @projects = @user.projects.includes(:user)
     render 'index'
   end  
   
